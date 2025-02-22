@@ -1,0 +1,15 @@
+Possible Reasons for High RAM Usage in NGINX:
+  - DDOS attack: The server might be under a Distributed Denial of Service (DDOS) attack.
+  - High number of requests: The number of incoming requests may be too high.
+  - Large POST/PUT body requests: The body of the POST requests may be too large (e.g., file uploads).
+  - Memory leak: This could be caused by bugs in NGINX or custom modules.
+  - Verbose logging: Logging too many details can consume a lot of RAM.
+  - Other services running: Other services, such as monitoring tools, could be consuming RAM.
+
+Solution:
+  - DDOS: Apply rate limiting to mitigate the impact of DDOS attacks.
+  - High number of requests: Apply rate limiting or scale NGINX instances to handle the load.
+  - Large POST body requests: Adjust NGINX configurations to limit the size of requests. Also, limit the size at the frontend application level.
+  - NGINX or custom module bug: Upgrade to the latest version of NGINX or fix issues with custom modules.
+  - Verbose logging: Reduce the level of log details to avoid consuming too much memory.
+  - Other services: Add more RAM or adjust configurations to reduce the memory consumption of other services.

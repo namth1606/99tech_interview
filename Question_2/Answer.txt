@@ -1,0 +1,25 @@
+1) An overview diagram of the services used and what role they play in the system.
+  - CloudFront: A CDN service that accelerates website access globally. Supports caching.
+  - Load Balancers: Ensures seamless scaling without downtime.
+  - Elastic Container Service (ECS): Use for run frontend applications.
+  - EC2: Use for run backend applications.  
+  - Elastic Cache: Caches static and infrequently changing data, reducing the need for constant database queries.
+  - RDS (Relational Database Service): Cluster model with a master node and multiple slave nodes, 
+    directing read queries to slave nodes to alleviate load on the master node.
+
+2) Elaboration on why each cloud service is used and what are the alternatives considered.
+The above services are used for cost optimization purposes, as well as for systems in their initial stages. Some services to consider: 
+  - CloudFront -> If caching is not required and usage is only domestic, consider switching to local domain services such as Tenten or CloudFly (Vietnam) 
+    to reduce CDN costs.
+  - Load Balancers -> Can not replace. But can use a single load balancer for multiple ports, route traffic to two EC2 nodes running HAProxy. 
+    HAProxy will handle the routing to backend node.
+  - Elastic Container Service -> Switch to using Amazon S3 if the application is a static website to optimize costs.
+  - EC2 -> If using a microservices architecture, migrate to EKS.
+  - Elastic Cache -> Consider switching to a self-managed and deploying it within EKS alongside the backend service.
+  - RDS -> Switch to using Amazon Aurora to increase performance and throughput. Leverage AWS's automatic scaling capabilities."
+
+3) Plans for scaling when the product grows beyond your current setup.
+In the case product grows beyond my current setup: 
+  -> Migrate data from RDS to Amazon Aurora
+  -> Move backend from EC2 to Pod in EKS 
+  -> Use redis cluster deploy in the same EKS with backend application
