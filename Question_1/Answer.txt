@@ -1,0 +1,5 @@
+- With base linux command:
+  cat ./transaction-log.txt | grep '"symbol": "TSLA"' | awk -F'"order_id":' '{print $2}' | awk -F',' '{print $1}' | xargs -I {} curl -s "https://example.com/api/{}" > ./output.txt
+
+- With "jq" command: 
+  cat ./transaction-log.txt | jq -r '. | select(.symbol == "TSLA") | .order_id' | xargs -I {} curl -s "https://example.com/api/{}" > ./output.txt
